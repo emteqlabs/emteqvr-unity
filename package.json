@@ -1,0 +1,36 @@
+{
+  "name": "com.emteqlabs.emteqvr",
+  "version": "1.0.0-preview.1",
+  "displayName": "EmteqVR",
+  "description": "EmteqVR SDK for Unity",
+  "unity": "2019.4",
+  "license": "MIT",
+  "keywords": [
+    "emteq",
+    "emteqlabs",
+    "biometrics",
+    "physiological",
+    "emotion",
+    "analytics",
+    "insights"
+  ],
+  "author": {
+    "name": "EmteqLabs",
+    "email": "info@emteqlabs.com",
+    "url": "https://www.emteqlabs.com/"
+  },
+  "samples": [
+	{
+      "displayName": "EmteqVR",
+      "description": "Demos and API usage for EmteqVR",
+      "path": "Samples/EmteqVR"
+    },
+    {
+      "displayName": "EmteqVR Eye",
+      "description": "Demo and APIs for Eye tracking",
+      "path": "Samples/EmteqVR Eye"
+    }
+  ],
+  "dependencies": {},
+  "type": "library"
+}

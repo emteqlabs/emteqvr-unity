@@ -1,0 +1,18 @@
+{
+    "name": "EmteqVR",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a2b760ae939930e49a02af707a1b4f70"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "EmteqVRPlugin.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
