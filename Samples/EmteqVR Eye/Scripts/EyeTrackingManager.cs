@@ -2,10 +2,10 @@
 using System.Runtime.InteropServices;
 using EmteqLabs.EyeTracking;
 using ViveSR.anipal.Eye;
-#endif
-using UnityEngine;
 using EyeData_v2 = ViveSR.anipal.Eye.EyeData_v2;
 using GazeIndex = ViveSR.anipal.Eye.GazeIndex;
+#endif
+using UnityEngine;
 
 namespace EmteqLabs
 {
