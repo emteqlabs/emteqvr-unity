@@ -21,14 +21,14 @@ https://github.com/emteq-ltd/emteqvr-unity.git
 
 ### Samples
 
-Once the package has been imported, you must also import the EmteqVR Sample scenes to acces the demos and the EmteqVRManager prefab.
+Once the package has been imported, you must also import the EmteqVR Sample scenes to access the demos and the EmteqVRManager prefab.
 ![Import Samples screenshot](./Documentation~/samples-import.png)
 
 
 
 ### Usage
 
-In order to make EmteqVR SDK work, you need to add `EmteqVRManager` prefab on to the main scene of your project.  
+In order for the EmteqVR SDK to function, you will need to add `EmteqVRManager` prefab on to the main scene of your project.  
 
 
 ### API Documentation
