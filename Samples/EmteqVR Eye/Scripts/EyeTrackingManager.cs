@@ -59,7 +59,7 @@ namespace EmteqLabs
             foreach (GazeIndex index in _gazePriority)
             {
                 Ray gazeRay;
-                int trackedObjectLayer = LayerMask.NameToLayer("TrackedObject");
+                int trackedObjectLayer = LayerMask.NameToLayer("Default");
                 
                 if (_eyeCallbackRegistered)
                     eyeFocus = SRanipal_Eye_v2.Focus(index, out gazeRay, out _focusInfo, 0, _maxDistance, (1 << trackedObjectLayer), _eyeData);
@@ -86,7 +86,7 @@ namespace EmteqLabs
                     {
                         if (previousTrackedObject != null)
                         {
-                            ExitGaze(_trackedObject);
+                            ExitGaze(previousTrackedObject);
                         }
                         
                         if (_trackedObject != null)

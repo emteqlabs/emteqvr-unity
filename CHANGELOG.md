@@ -17,4 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.0-preview.3] - 2021-05-06
 ### Fixed
 - Lighting settings on Affective Video demo rebuilt for Unity 2019.4.x
-- Fixed missing event data and emtpy recording status
+- Fixed missing event data and empty recording status
+
+## [1.0.0-preview.4] - 2021-05-10
+### Changed
+- Data Points demo has new buttons to show how to start and stop recording data.
+- Changed the layer for tracked objects on EmteqVREyeManager

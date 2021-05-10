@@ -48,6 +48,17 @@ namespace EmteqLabs
             _cube.SetColour(Color.yellow);
         }
 
+        public void StartRecordingData()
+        {
+            EmteqVRManager.StartRecordingData();
+        }
+
+        public void StopRecordingData()
+        {
+            EmteqVRManager.StopRecordingData();
+        }
+        
+
         [Serializable]
         public struct CubeData
         {
