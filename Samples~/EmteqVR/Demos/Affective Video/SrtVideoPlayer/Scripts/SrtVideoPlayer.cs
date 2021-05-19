@@ -28,7 +28,7 @@ namespace EmteqLabs.Video
         private VideoPlayerControls _playerControls;
         private VideoPlayerSubtitle _subtitlePanel;
         private SRTParser _srtParser;
-        private int _currentSubtitleIndex = -1;
+        private int _currentSubtitleIndex = 0;
         
         private void Awake()
         {
@@ -142,6 +142,12 @@ namespace EmteqLabs.Video
 
         private void VideoPlayerOnloopPointReached(VideoPlayer source)
         {
+            SubtitleBlock subtitleBlock = _srtParser.GetForTime((float) _videoPlayer.time);
+            if (subtitleBlock.Index != _currentSubtitleIndex)
+            {
+                ShowSubtitle(subtitleBlock);
+                _currentSubtitleIndex = subtitleBlock.Index;
+            }
             OnVideoClipFinished?.Invoke(source.clip);
         }
 
@@ -158,13 +164,17 @@ namespace EmteqLabs.Video
 
         private void ShowSubtitle(SubtitleBlock subtitleBlock)
         {
-            if(_currentSubtitleIndex >= 0)
-            {
-                OnHideSubtitle?.Invoke(_srtParser._subtitles[_currentSubtitleIndex].Text);
-            }
+            // if(_currentSubtitleIndex > 0)
+            // {
+            //     OnHideSubtitle?.Invoke(_srtParser._subtitles[_currentSubtitleIndex - 1].Text);
+            // }
             if(subtitleBlock != SubtitleBlock.Blank)
             {
                 OnShowSubtitle?.Invoke(subtitleBlock.Text);
+            }
+            else if(_currentSubtitleIndex > 0)
+            {
+                OnHideSubtitle?.Invoke(_srtParser._subtitles[_currentSubtitleIndex - 1].Text);
             }
             if (_showSubtitles)
             {

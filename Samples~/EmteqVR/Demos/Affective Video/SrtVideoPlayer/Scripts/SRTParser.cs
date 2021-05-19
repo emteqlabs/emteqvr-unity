@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace EmteqLabs.Video
@@ -26,7 +27,7 @@ namespace EmteqLabs.Video
                 Debug.LogError("Subtitle file is null");
                 return null;
             }
-
+            
             var lines = textAsset.text.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
 
             var currentState = eReadState.Index;
@@ -76,15 +77,15 @@ namespace EmteqLabs.Video
                         break;
                     case eReadState.Text:
                     {
-                        if (currentText != string.Empty)
-                            currentText += "\r\n";
+                        // if (currentText != string.Empty)
+                        //     currentText += "\r\n";
 
                         currentText += line;
 
                         // When we hit an empty line, consider it the end of the text
                         if (string.IsNullOrEmpty(line) || l == lines.Length - 1)
                         {
-                            // Create the SubtitleBlock with the data we've aquired 
+                            // Create the SubtitleBlock with the data we've acquired 
                             subs.Add(new SubtitleBlock(currentIndex, currentFrom, currentTo, currentText));
 
                             // Reset stuff so we can start again for the next block
@@ -138,7 +139,7 @@ namespace EmteqLabs.Video
 
         public static SubtitleBlock Blank
         {
-            get { return _blank ?? (_blank = new SubtitleBlock(-1, 0, 0, string.Empty)); }
+            get { return _blank ?? (_blank = new SubtitleBlock(0, 0, 0, string.Empty)); }
         }
 
         public int Index { get; private set; }

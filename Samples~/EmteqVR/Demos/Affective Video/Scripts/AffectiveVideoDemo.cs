@@ -5,7 +5,7 @@ using UnityEngine.Video;
 
 namespace EmteqLabs
 {
-    public class DataSectionsDemo : MonoBehaviour
+    public class AffectiveVideoDemo : MonoBehaviour
     {
         [SerializeField] private CalibrationPanel _calibrationPanel;
         [SerializeField] public SrtVideoPlayer _videoPlayer;
@@ -31,25 +31,27 @@ namespace EmteqLabs
         private void PlayVideo()
         {
             _videoPlayer.OnShowSubtitle += OnShowSubtitle;
-            _videoPlayer.OnHideSubtitle += OnHideOnHideSubtitle;
+            _videoPlayer.OnHideSubtitle += OnHideSubtitle;
             _videoPlayer.OnVideoClipFinished += OnVideoClipFinished;
             _videoPlayer.Play();
         }
         
         private void OnShowSubtitle(string subtitle)
         {
-            //TODO: EmteqManager set event start
+            //Debug.Log(subtitle+" Show");
+            EmteqVRManager.StartDataSection(subtitle);
         }
 
-        private void OnHideOnHideSubtitle(string subtitle)
+        private void OnHideSubtitle(string subtitle)
         {
-            //TODO: EmteqManager set event end
+            //Debug.Log(subtitle+" Hide");
+            EmteqVRManager.EndDataSection(subtitle);
         }
 
         private void OnVideoClipFinished(VideoClip videoClip)
         {
             _videoPlayer.OnShowSubtitle -= OnShowSubtitle;
-            _videoPlayer.OnHideSubtitle -= OnHideOnHideSubtitle;
+            _videoPlayer.OnHideSubtitle -= OnHideSubtitle;
             _videoPlayer.OnVideoClipFinished -= OnVideoClipFinished;
         }
     }
