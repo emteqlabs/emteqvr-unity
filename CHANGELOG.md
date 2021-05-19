@@ -23,3 +23,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Data Points demo has new buttons to show how to start and stop recording data.
 - Changed the layer for tracked objects on EmteqVREyeManager
+
+## [1.0.0-preview.5] - 2021-05-17
+### Fixed
+- Unity would hang after calibration because thread processes were not being properly disposed.
+- Missing serialisation data on messages sent to SuperVision
+- Missing data on Affective Video demo
+### Changed
+- Calibration now shows ExpressionType and FaceSide as strings on the session json file rather than an enum value.
