@@ -54,6 +54,15 @@ namespace EmteqLabs
             }
         }
 
+        public void StartTest()
+        {
+            EmteqVRManager.StartExpressionCalibration(ExpressionType.Smile);
+        }
+        
+        public void StopTest()
+        {
+            EmteqVRManager.EndExpressionCalibration();
+        }
         public void PauseProgressAnimation()
         {
             _calibrationProgressPlayableDirector.Pause();
