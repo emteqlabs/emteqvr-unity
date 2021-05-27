@@ -3,20 +3,24 @@ using UnityEngine;
 using EmteqLabs.Faceplate;
 using EmteqLabs.MaskProtocol;
 using EmteqLabs.Models;
+using UnityEditor;
 
 namespace EmteqLabs
 {
     public class EmteqVRManager : MonoBehaviour
     {
         public static EmteqVRManager Instance { get; private set; }
-        
+        public static bool ShowContactPrompt = true;
         #region  Serialisable properties
         
         [SerializeField]
         private bool _autoStartRecordingData = true;
 
+        [SerializeField]
+        private bool _showContactPrompt = true;
+        
         public bool ShowLogMessages = true;
-
+     
         #endregion
         
         
@@ -170,6 +174,7 @@ namespace EmteqLabs
                 return;
             }
 
+            ShowContactPrompt = _showContactPrompt;
             DontDestroyOnLoad(this.gameObject);
             Instance = this;
         }
@@ -215,6 +220,7 @@ namespace EmteqLabs
             {
                 Application.logMessageReceived -= ApplicationOnlogMessageReceived;
                 EmteqVRPlugin.Instance.OnLogMessageReceived -= OnLogMessageReceivedPluginHandler;
+                ShowContactPrompt = true;
             }
         }
 
@@ -251,6 +257,7 @@ namespace EmteqLabs
         public static void SetParticipantID(string id)
         {
             EmteqVRPlugin.Instance.SetParticipantID(id);
+            ShowContactPrompt = true;
         }
         
         public static void SetDataPoint(string label)

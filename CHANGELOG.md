@@ -31,3 +31,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Missing data on Affective Video demo
 ### Changed
 - Calibration now shows ExpressionType and FaceSide as strings on the session json file rather than an enum value.
+
+## [1.0.0-preview.6] - 2021-05-21
+### Changed
+- Mask fit adjustment prompt now waits 5 seconds before alerting the user to a mask fit change.
+
+## [1.0.0-preview.7] - 2021-05-25
+### Changed
+- More robust logic was introduced for processing the BlockingCollections.
+- Mask fit adjustment prompt's 3D model was made transparent.
