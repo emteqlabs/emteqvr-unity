@@ -23,12 +23,12 @@
 	{
       "displayName": "EmteqVR",
       "description": "Demos and API usage for EmteqVR",
-      "path": "Samples~/EmteqVR"
+      "path": "Samples/EmteqVR"
     },
     {
       "displayName": "EmteqVR Eye",
       "description": "Demo and APIs for Eye tracking",
-      "path": "Samples~/EmteqVR Eye"
+      "path": "Samples/EmteqVR Eye"
     }
   ],
   "dependencies": {},
