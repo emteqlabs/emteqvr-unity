@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2427250979036440296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2427250979036440311}
+  - component: {fileID: 4273183962542042110}
+  m_Layer: 0
+  m_Name: ContactPrompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2427250979036440311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427250979036440296}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5800903229747808922}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4273183962542042110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427250979036440296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e97fdc80c35f3f49aa8292e45d38f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fitStateThreshold: 8
+  _hidePromptIfStableForSeconds: 3
+  _promptMessage: <color="black">Bad quality contact detected.<br>Please adjust your
+    mask until all sensors show </color><color="green">green</color>
+  _emteqVRMaskGUI: {fileID: 694109610586892672}
+--- !u!1001 &76826449145438621
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2427250979036440311}
+    m_Modifications:
+    - target: {fileID: 5877201908999121670, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_Name
+      value: EmteqVRMaskGUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+--- !u!4 &5800903229747808922 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5877201908999121671, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+  m_PrefabInstance: {fileID: 76826449145438621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &694109610586892672 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 626290881210370077, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+  m_PrefabInstance: {fileID: 76826449145438621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210bae83980fc3e42a5209df7267a6b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
