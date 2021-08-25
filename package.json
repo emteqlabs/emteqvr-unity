@@ -1,6 +1,6 @@
 {
   "name": "com.emteqlabs.emteqvr",
-  "version": "1.0.0-preview.7",
+  "version": "1.1.0",
   "displayName": "EmteqVR",
   "description": "EmteqVR SDK for Unity",
   "unity": "2019.4",
@@ -20,7 +20,7 @@
     "url": "https://www.emteqlabs.com/"
   },
   "samples": [
-	{
+    {
       "displayName": "EmteqVR",
       "description": "Demos and API usage for EmteqVR",
       "path": "Samples/EmteqVR"
@@ -31,6 +31,9 @@
       "path": "Samples/EmteqVR Eye"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+    "com.unity.webrtc": "2.4.0-exp.3",
+    "com.unity.renderstreaming": "3.1.0-exp.1"
+  },
   "type": "library"
 }

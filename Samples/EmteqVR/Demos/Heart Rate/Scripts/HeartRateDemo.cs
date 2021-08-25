@@ -9,10 +9,10 @@ namespace EmteqLabs
     public class HeartRateDemo : MonoBehaviour
     {
         [SerializeField] private GameObject _currentHRInstructions;
-        
+
         [SerializeField] private Text _statusText;
         [SerializeField] private Text _currentHRText;
-        
+
         [SerializeField] private GameObject _baselineInstructions;
         [SerializeField] private GameObject _baselinePanels;
         [SerializeField] private Button _calculateBaselineButton;
@@ -64,7 +64,7 @@ namespace EmteqLabs
             _baselinePanels.SetActive(true);
             EmteqVRManager.StartHeartRateBaselineCalibration();
         }
-        
+
         //called from a button in Unity
         public void ShowBaselineResult()
         {

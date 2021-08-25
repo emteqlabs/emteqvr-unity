@@ -36,7 +36,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Mask fit adjustment prompt now waits 5 seconds before alerting the user to a mask fit change.
 
-## [1.0.0-preview.7] - 2021-05-25
+## [1.0.0] - 2021-05-25
 ### Changed
 - More robust logic was introduced for processing the BlockingCollections.
 - Mask fit adjustment prompt's 3D model was made transparent.
+
+## [1.1.0] - 2021-08-24
+### Changed
+- Added local video streaming support to Supervision app (1.1.3+)
+- Added systems required for supporting DAB file playback. Note that it is not yet operational, it will be completed in a future release.
+- Improved performance and reliability of mask USB connection
+

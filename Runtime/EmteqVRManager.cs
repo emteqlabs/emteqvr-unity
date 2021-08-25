@@ -11,19 +11,20 @@ namespace EmteqLabs
     {
         public static EmteqVRManager Instance { get; private set; }
         public static bool ShowContactPrompt = true;
-        #region  Serialisable properties
         
+        #region  Serialisable properties
+
         [SerializeField]
         private bool _autoStartRecordingData = true;
 
         [SerializeField]
         private bool _showContactPrompt = true;
-        
+
         public bool ShowLogMessages = true;
-     
+
         #endregion
-        
-        
+
+
         #region EmteqVRDevice Public Events
 
         public static event EmteqVRPlugin.DeviceConnectDelegate OnDeviceConnect
@@ -39,10 +40,12 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnDeviceConnect -= OnPluginDeviceConnectHandler;
             }
         }
+        
         private static EmteqVRPlugin.DeviceConnectDelegate _onDeviceConnectDelegate;
         private static void OnPluginDeviceConnectHandler()
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 _onDeviceConnectDelegate?.Invoke();
             });
         }
@@ -63,7 +66,8 @@ namespace EmteqLabs
         private static EmteqVRPlugin.DeviceDisconnectDelegate _onDeviceDisconnectDelegate;
         private static void OnPluginDeviceDisconnectHandler()
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 _onDeviceDisconnectDelegate?.Invoke();
             });
         }
@@ -71,7 +75,8 @@ namespace EmteqLabs
         public static event EmteqVRPlugin.LogDelegate OnDeviceLog;
         private static void OnLogMessageReceivedPluginHandler(string logMessage, LogType logType)
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 Logger.LogMessage(logMessage, logType);
                 OnDeviceLog?.Invoke(logMessage, logType);
             });
@@ -85,15 +90,17 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnDeviceFitStateChange += OnPluginDeviceFitStateChangeHandler;
             }
             remove
-            { 
+            {
                 _onDeviceFitStateChange -= value;
-                EmteqVRPlugin.Instance.OnDeviceFitStateChange -= OnPluginDeviceFitStateChangeHandler; 
+                EmteqVRPlugin.Instance.OnDeviceFitStateChange -= OnPluginDeviceFitStateChangeHandler;
             }
         }
+        
         private static EmteqVRPlugin.DeviceFitStateChangeDelegate _onDeviceFitStateChange;
         private static void OnPluginDeviceFitStateChangeHandler(FitState fitState)
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 _onDeviceFitStateChange?.Invoke(fitState);
             });
         }
@@ -111,14 +118,16 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnSensorContactStateChange -= SensorContactStateChangeHandler;
             }
         }
+        
         private static event EmteqVRPlugin.SensorContactStateChangeDelegate _onSensorContactStateChange;
         private static void SensorContactStateChangeHandler(Dictionary<MuscleMapping, ContactState> sensorContactState)
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 _onSensorContactStateChange?.Invoke(sensorContactState);
             });
         }
-        
+
         public static event EmteqVRPlugin.HeartRateAverageUpdateDelegate OnHeartRateAverageUpdate // once per second
         {
             add
@@ -132,10 +141,12 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnHeartRateAverageUpdate -= OnPluginHeartRateAverageUpdateHandler;
             }
         }
+        
         private static event EmteqVRPlugin.HeartRateAverageUpdateDelegate _onHeartRateAverageUpdate;
         private static void OnPluginHeartRateAverageUpdateHandler(double bpm)
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 _onHeartRateAverageUpdate?.Invoke(bpm);
             });
         }
@@ -153,16 +164,63 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnValenceUpdate -= value;
             }
         }
+        
         private static event EmteqVRPlugin.ValenceUpdateDelegate _onValenceUpdate;
         private static void OnPluginValenceUpdateHandler(float normalisedValence)
         {
-            UnityThreadRelay.Instance.Invoke(() => {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
                 _onValenceUpdate?.Invoke(normalisedValence);
             });
         }
 
+        public static event EmteqVRPlugin.VideoStreamConfigDelegate OnVideoStreamConfig
+        {
+            add
+            {
+                _onVideoStreamConfigDelegate += value;
+                EmteqVRPlugin.Instance.OnVideoStreamConfig -= OnVideoStreamConfigHandler;
+                EmteqVRPlugin.Instance.OnVideoStreamConfig += OnVideoStreamConfigHandler;
+            }
+            remove
+            {
+                _onVideoStreamConfigDelegate -= value;
+                EmteqVRPlugin.Instance.OnVideoStreamConfig -= OnVideoStreamConfigHandler;
+            }
+        }
+        
+        private static EmteqVRPlugin.VideoStreamConfigDelegate _onVideoStreamConfigDelegate;
+        private static void OnVideoStreamConfigHandler(string macAddress, string ipAddress, string port)
+        {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
+                _onVideoStreamConfigDelegate?.Invoke(macAddress, ipAddress, port);
+            });
+        }
+        
+        public static event EmteqVRPlugin.VideoStreamStatusDelegate OnVideoStreamStatus
+        {
+            add
+            {
+                _onVideoStreamStatusDelegate += value;
+                EmteqVRPlugin.Instance.OnVideoStreamStatus -= OnVideoStreamStatusHandler;
+                EmteqVRPlugin.Instance.OnVideoStreamStatus += OnVideoStreamStatusHandler;
+            }
+            remove
+            {
+                _onVideoStreamStatusDelegate -= value;
+                EmteqVRPlugin.Instance.OnVideoStreamStatus -= OnVideoStreamStatusHandler;
+            }
+        }
+        private static EmteqVRPlugin.VideoStreamStatusDelegate _onVideoStreamStatusDelegate;
+        private static void OnVideoStreamStatusHandler(bool isConnected)
+        {
+            UnityThreadRelay.Instance.Invoke(() =>
+            {
+                _onVideoStreamStatusDelegate?.Invoke(isConnected);
+            });
+        }
         #endregion
-
 
         #region Unity Life Cycle
         void Awake()
@@ -195,7 +253,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.Enable();
             }
         }
-        
+
         private void OnDeviceConnectHandler()
         {
             if (_autoStartRecordingData)
@@ -233,12 +291,12 @@ namespace EmteqLabs
         {
             return EmteqVRPlugin.Instance.IsDeviceConnected();
         }
-        
+
         public static Dictionary<MuscleMapping, ushort> GetEmgAmplitudeRms()
         {
             return EmteqVRPlugin.Instance.GetEmgAmplitudeRms();
         }
-        
+
         public static PpgRawSignal GetRawPpgSignal()
         {
             return EmteqVRPlugin.Instance.GetRawPpgSignal();
@@ -259,44 +317,43 @@ namespace EmteqLabs
             EmteqVRPlugin.Instance.SetParticipantID(id);
             ShowContactPrompt = true;
         }
-        
+
         public static void SetDataPoint(string label)
         {
             EmteqVRPlugin.Instance.SetDataPoint(label);
         }
-        
+
         public static void SetDataPoint<T>(string label, T metadata)
         {
             EmteqVRPlugin.Instance.SetDataPoint<T>(label, metadata);
         }
-        
+
         public static void StartDataSection(string label)
         {
             EmteqVRPlugin.Instance.StartDataSection(label);
         }
-        
+
         public static void StartDataSection<T>(string label, T metadata)
         {
             EmteqVRPlugin.Instance.StartDataSection<T>(label, metadata);
         }
-        
+
         public static void EndDataSection(string label)
         {
             EmteqVRPlugin.Instance.EndDataSection(label);
         }
-        
+
         public static void EndDataSection<T>(string label, T metadata)
         {
             EmteqVRPlugin.Instance.EndDataSection<T>(label, metadata);
         }
         
-
         #endregion
 
 
         #region Calibration
 
-        public static void StartExpressionCalibration(ExpressionType expressionType, FaceSide faceSide=FaceSide.Left)
+        public static void StartExpressionCalibration(ExpressionType expressionType, FaceSide faceSide = FaceSide.Left)
         {
             EmteqVRPlugin.Instance.StartExpressionCalibration(expressionType);
         }
@@ -305,7 +362,7 @@ namespace EmteqLabs
         {
             return EmteqVRPlugin.Instance.EndExpressionCalibration();
         }
-        
+
         public static void ResetExpressionCalibrationValues()
         {
             EmteqVRPlugin.Instance.ResetExpressionCalibrationValues();
@@ -325,17 +382,17 @@ namespace EmteqLabs
         {
             EmteqVRPlugin.Instance.ResetBaselineHeartRateCalibration();
         }
-        
+
         public static Dictionary<MuscleMapping, float> GetNormalisedEmgRms()
         {
             return EmteqVRPlugin.Instance.GetNormalisedEmgRms();
         }
-                
+
         public static Dictionary<MuscleMapping, float> GetSustainedNormalisedEmgRms()
         {
             return EmteqVRPlugin.Instance.GetSustainedNormalisedEmgRms();
         }
-    
+
         #endregion
 
         private void ApplicationOnlogMessageReceived(string condition, string stacktrace, UnityEngine.LogType type)
