@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fitStateThreshold: 8
   _hidePromptIfStableForSeconds: 3
-  _promptMessage: <color="black">Bad quality contact detected.<br>Please adjust your
-    mask until all sensors show </color><color="green">green</color>
-  _emteqVRMaskGUI: {fileID: 694109610586892672}
+  _promptMessage: <color="white">Bad quality contact detected.<br>Please adjust your
+    mask until all sensors show </color><color=#00FF00>green</color>
+  EmteqVRMaskGUI: {fileID: 694109610586892672}
 --- !u!1001 &76826449145438621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,6 +56,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2427250979036440311}
     m_Modifications:
+    - target: {fileID: 122759004, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4273183962542042110}
+    - target: {fileID: 1226585845, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4273183962542042110}
     - target: {fileID: 5877201908999121670, guid: 13cc971484ad58a4782d3ae589f3a2de, type: 3}
       propertyPath: m_Name
       value: EmteqVRMaskGUI
