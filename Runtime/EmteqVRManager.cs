@@ -11,7 +11,7 @@ namespace EmteqLabs
     {
         public static EmteqVRManager Instance { get; private set; }
         public static bool ShowContactPrompt = true;
-        
+
         #region  Serialisable properties
 
         [SerializeField]
@@ -40,7 +40,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnDeviceConnect -= OnPluginDeviceConnectHandler;
             }
         }
-        
+
         private static EmteqVRPlugin.DeviceConnectDelegate _onDeviceConnectDelegate;
         private static void OnPluginDeviceConnectHandler()
         {
@@ -59,7 +59,7 @@ namespace EmteqLabs
             }
             remove
             {
-                _onDeviceDisconnectDelegate += value;
+                _onDeviceDisconnectDelegate -= value;
                 EmteqVRPlugin.Instance.OnDeviceDisconnect -= OnPluginDeviceDisconnectHandler;
             }
         }
@@ -95,7 +95,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnDeviceFitStateChange -= OnPluginDeviceFitStateChangeHandler;
             }
         }
-        
+
         private static EmteqVRPlugin.DeviceFitStateChangeDelegate _onDeviceFitStateChange;
         private static void OnPluginDeviceFitStateChangeHandler(FitState fitState)
         {
@@ -118,7 +118,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnSensorContactStateChange -= SensorContactStateChangeHandler;
             }
         }
-        
+
         private static event EmteqVRPlugin.SensorContactStateChangeDelegate _onSensorContactStateChange;
         private static void SensorContactStateChangeHandler(Dictionary<MuscleMapping, ContactState> sensorContactState)
         {
@@ -141,7 +141,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnHeartRateAverageUpdate -= OnPluginHeartRateAverageUpdateHandler;
             }
         }
-        
+
         private static event EmteqVRPlugin.HeartRateAverageUpdateDelegate _onHeartRateAverageUpdate;
         private static void OnPluginHeartRateAverageUpdateHandler(double bpm)
         {
@@ -164,7 +164,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnValenceUpdate -= value;
             }
         }
-        
+
         private static event EmteqVRPlugin.ValenceUpdateDelegate _onValenceUpdate;
         private static void OnPluginValenceUpdateHandler(float normalisedValence)
         {
@@ -188,7 +188,7 @@ namespace EmteqLabs
                 EmteqVRPlugin.Instance.OnVideoStreamConfig -= OnVideoStreamConfigHandler;
             }
         }
-        
+
         private static EmteqVRPlugin.VideoStreamConfigDelegate _onVideoStreamConfigDelegate;
         private static void OnVideoStreamConfigHandler(string macAddress, string ipAddress, string port)
         {
@@ -197,7 +197,7 @@ namespace EmteqLabs
                 _onVideoStreamConfigDelegate?.Invoke(macAddress, ipAddress, port);
             });
         }
-        
+
         public static event EmteqVRPlugin.VideoStreamStatusDelegate OnVideoStreamStatus
         {
             add
@@ -347,7 +347,7 @@ namespace EmteqLabs
         {
             EmteqVRPlugin.Instance.EndDataSection<T>(label, metadata);
         }
-        
+
         #endregion
 
 

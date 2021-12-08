@@ -41,7 +41,7 @@ namespace EmteqLabs.Video
             }
 
             // Subtitles Initialisation
-            _subtitlePanel = GetComponentInChildren<VideoPlayerSubtitle>();
+            _subtitlePanel = GetComponentInChildren<VideoPlayerSubtitle>(true);
             if (_subtitlePanel == null) return;
             _subtitlePanel.gameObject.SetActive(_showSubtitles);
             _subtitlePanel.SetText("");
@@ -51,7 +51,7 @@ namespace EmteqLabs.Video
             }
             
             // Player Controls Initialisation
-            _playerControls = GetComponentInChildren<VideoPlayerControls>();
+            _playerControls = GetComponentInChildren<VideoPlayerControls>(true);
             if (_playerControls == null) return;
             _playerControls.gameObject.SetActive(_showPlayerControl);
             if (_showPlayerControl && _videoClip != null)

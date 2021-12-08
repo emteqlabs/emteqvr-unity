@@ -1,18 +1,19 @@
 using EmteqLabs.Models;
 using EmteqLabs.Video;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Video;
 
 namespace EmteqLabs
 {
     public class AffectiveVideoDemo : MonoBehaviour
     {
-        [SerializeField] private CalibrationPanel _calibrationPanel;
+        [FormerlySerializedAs("_calibrationPanel")] [SerializeField] private CustomCalibration customCalibration;
         [SerializeField] public SrtVideoPlayer _videoPlayer;
 
         private void Awake()
         {
-            _calibrationPanel.OnExpressionCalibrationComplete += OnExpressionCalibrationComplete;
+            customCalibration.OnExpressionCalibrationComplete += OnExpressionCalibrationComplete;
         }
 
         private void OnDestroy()
@@ -22,8 +23,8 @@ namespace EmteqLabs
 
         private void OnExpressionCalibrationComplete(EmgCalibrationData expressionCalibrationData)
         {
-            _calibrationPanel.OnExpressionCalibrationComplete -= OnExpressionCalibrationComplete;
-            _calibrationPanel.gameObject.SetActive(false);
+            customCalibration.OnExpressionCalibrationComplete -= OnExpressionCalibrationComplete;
+            customCalibration.gameObject.SetActive(false);
             _videoPlayer.gameObject.SetActive(true);
             PlayVideo();
         }

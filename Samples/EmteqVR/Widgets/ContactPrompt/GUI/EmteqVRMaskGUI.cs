@@ -10,7 +10,7 @@ namespace EmteqLabs
     public class EmteqVRMaskGUI : MonoBehaviour
     {
         [SerializeField]
-        private VRSensorGUI[] _sensorGUIItems;
+        private SensorGUIObject[] _sensorGUIItems;
         [SerializeField]
         private Text _instructionsText;
         [SerializeField]
@@ -55,8 +55,11 @@ namespace EmteqLabs
 
         private void OnDestroy()
         {
-            SceneManager.sceneLoaded -= SceneManagerOnsceneLoaded;
-            EmteqVRManager.OnSensorContactStateChange -= OnSensorContactStateChange;
+            if (Instance == this)
+            {
+                SceneManager.sceneLoaded -= SceneManagerOnsceneLoaded;
+                EmteqVRManager.OnSensorContactStateChange -= OnSensorContactStateChange;
+            }
         }
         
         private void SceneManagerOnsceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -91,7 +94,7 @@ namespace EmteqLabs
         {
             for (int i = 0; i < _sensorGUIItems.Length; i++)
             {
-                _sensorGUIItems[i].SetContactState(sensorcontactstate[_sensorGUIItems[i].SensorName]);
+                _sensorGUIItems[i].SetContactState(_sensorGUIItems[i].SensorName, sensorcontactstate[_sensorGUIItems[i].SensorName]);
             }
         }
 
