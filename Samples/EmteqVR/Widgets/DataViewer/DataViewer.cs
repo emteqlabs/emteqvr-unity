@@ -8,19 +8,22 @@ namespace EmteqLabs
     public class DataViewer : MonoBehaviour
     {
         [SerializeField]
-        private List<SensorGUI> _sensors;
+        private List<SensorGUIObject> _sensors;
 
         private Dictionary<MuscleMapping, ushort> _emgAmplitudeRms;
 
+        private bool _initialised = false;
+
         private void Start()
         {
+            _initialised = true;
             EmteqVRManager.OnSensorContactStateChange += OnSensorContactStateChange;
         }
 
         void Update()
         {
             _emgAmplitudeRms = EmteqVRManager.GetEmgAmplitudeRms();
-            foreach(SensorGUI sensor in _sensors)
+            foreach(SensorGUIObject sensor in _sensors)
             {
                 sensor.SetSensorValue(_emgAmplitudeRms[sensor.SensorName]);
             }
@@ -28,12 +31,15 @@ namespace EmteqLabs
 
         private void OnDestroy()
         {
-            EmteqVRManager.OnSensorContactStateChange -= OnSensorContactStateChange;
+            if (_initialised == true)
+            {
+                EmteqVRManager.OnSensorContactStateChange -= OnSensorContactStateChange;
+            }
         }
         
         private void OnSensorContactStateChange(Dictionary<MuscleMapping, ContactState> sensorcontactstate)
         {
-            foreach(SensorGUI sensor in _sensors)
+            foreach(SensorGUIObject sensor in _sensors)
             {
                 sensor.SetContactState(sensor.SensorName, sensorcontactstate[sensor.SensorName]);
             }

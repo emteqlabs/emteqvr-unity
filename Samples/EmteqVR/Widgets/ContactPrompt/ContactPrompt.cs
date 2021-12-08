@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EmteqLabs.MaskProtocol;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace EmteqLabs
 {
@@ -14,7 +15,6 @@ namespace EmteqLabs
         private float _hidePromptIfStableForSeconds = 3;
         [SerializeField]
         private string _promptMessage;
-        [SerializeField]
         private EmteqVRMaskGUI _emteqVRMaskGUI;
         
         private float _currentCountdownValue;
@@ -22,9 +22,12 @@ namespace EmteqLabs
         private FitState _currentFitState = FitState.None;
         private bool _isBuffering = false;
         private bool _startContactBuffer = false;
+        private bool _initialised = false;
 
         void Start()
         {
+            _initialised = true;
+            _emteqVRMaskGUI = GetComponentInChildren <EmteqVRMaskGUI>();
             EmteqVRManager.Instance.OnDeviceFitStateChange += OnFitStateChange;
             _emteqVRMaskGUI.SetInstructions(_promptMessage);
         }
@@ -41,7 +44,10 @@ namespace EmteqLabs
 
         private void OnDestroy()
         {
-            EmteqVRManager.Instance.OnDeviceFitStateChange -= OnFitStateChange;
+            if (_initialised == true)
+            {
+                EmteqVRManager.Instance.OnDeviceFitStateChange -= OnFitStateChange;
+            }
         }
 
         private void OnFitStateChange(FitState fitState)
