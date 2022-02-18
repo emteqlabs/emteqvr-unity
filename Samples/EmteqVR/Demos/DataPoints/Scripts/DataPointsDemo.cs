@@ -7,6 +7,12 @@ namespace EmteqLabs
     {
         [SerializeField] private CubeController _cube;
 
+        void Start()
+        {
+            // Sync framerate to monitors refresh rate
+            QualitySettings.vSyncCount = 1;
+        }
+
         public void SetDataPoint()
         {
             var metadata = new CubeData("cyan cube", _cube.transform.position, _cube.transform.rotation, Color.cyan);
@@ -17,7 +23,7 @@ namespace EmteqLabs
         public void StartDataSectionRed()
         {
             var metadata = new CubeData("red cube", _cube.transform.position, _cube.transform.rotation, Color.red);
-            EmteqVRManager.StartDataSection("red paused", metadata);
+            EmteqVRManager.StartDataSection("red started", metadata);
             _cube.PauseRotation();
             _cube.SetColour(Color.red);
         }
@@ -34,7 +40,7 @@ namespace EmteqLabs
         {
             var metadata = new CubeData("yellow cube", _cube.transform.position, _cube.transform.rotation,
                 Color.yellow);
-            EmteqVRManager.StartDataSection("yellow paused", metadata);
+            EmteqVRManager.StartDataSection("yellow started", metadata);
             _cube.PauseRotation();
             _cube.SetColour(Color.yellow);
         }

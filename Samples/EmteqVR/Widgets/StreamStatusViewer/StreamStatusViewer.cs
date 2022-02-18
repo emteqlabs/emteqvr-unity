@@ -5,12 +5,13 @@ using EmteqLabs.MaskProtocol;
 using EmteqVR.Runtime.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace EmteqLabs
 {
     public class StreamStatusViewer : MonoBehaviour
     {
-        public Text statusText;
+        public TMP_Text statusText;
 
         private void Start()
         {

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using TMPro;
 
 
 namespace EmteqLabs
@@ -10,23 +11,26 @@ namespace EmteqLabs
     {
         [SerializeField] private GameObject _currentHRInstructions;
 
-        [SerializeField] private Text _statusText;
-        [SerializeField] private Text _currentHRText;
+        [SerializeField] private TMP_Text _statusText;
+        [SerializeField] private TMP_Text _currentHRText;
 
         [SerializeField] private GameObject _baselineInstructions;
         [SerializeField] private GameObject _baselinePanels;
         [SerializeField] private Button _calculateBaselineButton;
         [FormerlySerializedAs("_showBaselineButton")] [SerializeField] private Button _showResultsButton;
-        [SerializeField] private Text _standardDeviationHRText;
-        [SerializeField] private Text _medianHRText;
+        [SerializeField] private TMP_Text _standardDeviationHRText;
+        [SerializeField] private TMP_Text _medianHRText;
 
         private void Start()
         {
+            // Sync framerate to monitors refresh rate
+            QualitySettings.vSyncCount = 1;
+
             if (!EmteqVRManager.IsDeviceConnected())
             {
                 EmteqVRManager.OnDeviceConnect += OnEmteqDeviceConnectionSuccess;
                 EmteqVRManager.OnDeviceDisconnect += OnEmteqDeviceConnectionError;
-                _statusText.text = ("<color=blue>Connecting to EmteqVR Device</color>");
+                _statusText.text = ("<color=#00FFFF>Connecting to EmteqVR Device</color>");
             }
             else
             {
@@ -36,12 +40,12 @@ namespace EmteqLabs
 
         private void OnEmteqDeviceConnectionError()
         {
-            _statusText.text = ("<color=red>Could not connect to EmteqVR Device</color>");
+            _statusText.text = ("<color=#FF4500>Could not connect to EmteqVR Device</color>");
         }
 
         private void OnEmteqDeviceConnectionSuccess()
         {
-            _statusText.text = ("<color=blue>Detecting Heart Rate...</color>");
+            _statusText.text = ("<color=#00FFFF>Detecting Heart Rate...</color>");
             EmteqVRManager.OnHeartRateAverageUpdate += OnHeartRateUpdate;
         }
 
@@ -49,7 +53,7 @@ namespace EmteqLabs
         {
             if (hr > 0d)
             {
-                _statusText.text = ("<color=green>Heart Rate Detected...</color>");
+                _statusText.text = ("<color=#00FF7F>Heart Rate Detected...</color>");
                 _currentHRInstructions.SetActive(false);
                 _currentHRText.text = hr.ToString("F");
             }

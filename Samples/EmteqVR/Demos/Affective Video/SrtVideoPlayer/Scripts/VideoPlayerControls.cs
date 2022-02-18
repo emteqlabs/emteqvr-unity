@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace EmteqLabs.Video
 {
@@ -9,8 +10,8 @@ namespace EmteqLabs.Video
         [SerializeField] private Slider _scrubber;
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _pauseButton;
-        [SerializeField] private Text _currentTimeText;
-        [SerializeField] private Text _totalTimeText;
+        [SerializeField] private TMP_Text _currentTimeText;
+        [SerializeField] private TMP_Text _totalTimeText;
 
         private float _currentPlayheadPosition;
 
