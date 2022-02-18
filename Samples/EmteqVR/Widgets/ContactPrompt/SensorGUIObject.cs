@@ -1,6 +1,7 @@
 ﻿using System;
 using EmteqLabs.Faceplate;
 using EmteqLabs.MaskProtocol;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace EmteqLabs
         public MuscleMapping SensorName;
         public bool IsDebugSensor = false;
         [SerializeField] 
-        private Text _displayValue;
+        private TMP_Text _displayValue;
         [SerializeField]
         private Image[] _sensorImages;
         [SerializeField]

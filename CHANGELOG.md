@@ -25,12 +25,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changed the layer for tracked objects on EmteqVREyeManager.
 
 ## [1.0.0-preview.5] - 2021-05-17
+### Changed
+- Calibration now shows ExpressionType and FaceSide as strings on the session json file rather than an enum value.
 ### Fixed
 - Unity would hang after calibration because thread processes were not being properly disposed.
 - Missing serialisation data on messages sent to SuperVision.
 - Missing data on Affective Video demo.
-### Changed
-- Calibration now shows ExpressionType and FaceSide as strings on the session json file rather than an enum value.
 
 ## [1.0.0-preview.6] - 2021-05-21
 ### Changed
@@ -48,12 +48,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improved performance and reliability of mask USB connection.
 
 ## [1.2.0] - 2021-12-03
-### Fixed
-- Fixed issue relating to mismatch in data frequency on hardware version 9.4.0 masks.
 ### Changed
 - Updated UI design of sensor debug widget.
 - Replaced previous calibration prefab with a new design.
+### Fixed
+- Fixed issue relating to mismatch in data frequency on hardware version 9.4.0 masks.
 
 ## [1.2.1] - 2021-12-06
 ### Fixed
-- Fixed issue where the sensor debug widget and the Mask fit adjustment prompt’s sensor icons were not changing appropriately to reflect their respective fit states.
+- Fixed issue where the sensor debug widget and the Mask fit adjustment prompt's sensor icons were not changing appropriately to reflect their respective fit states.
+
+## [1.3.0] - 2022-01-21
+### Changed
+- Added feature to automatically start and stop a data section that shows whethere the mask is on or off the users face
+- Added eye data saving to an "<datetime>.eyedata" file when the EyeTrackingManager is in use
+- Added quick switch bool to calibration prefab allowing switching between using a button or a timer for stage progression
+- Replaced all text elements within project with TextMeshPro versions with a new high resolution font
+### Fixed
+- Fixed code within CustomCalibration.cs that was incompatible with Unity 2019
+- Fixed desktop scenes to enable Vsync so that they do not run with an unlimited frame rate which was causing high GPU usage
+## [1.3.1] - 2022-01-21
+### Fixed
+- Fixed minor UI bug within contact prompt and video stream status widget.
+
+## [1.3.2] - 2022-02-26
+### Fixed
+- Fixed issues with mask reconnect logic
+
+## [1.4.0] - 2022-02-11
+### Added
+- Added bool value to VR Manager to read if data recording is turned on or not
+- Added exposed option to customise distance mask contact prompt is placed from camera
+### Changed
+- Completed overhaul of the UI in sample scenes and prefabs
+### Fixed
+- Fixed EMG sensor data frequency
+- Fixed various issues with Emteq prefabs and UI in samples
+- Fixed bugs in display and deactivation of contact prompt
+- Fixed calibration screen in affective video sample
+
+## [1.4.1] - 2022-02-17
+### Fixed
+- Replaced font asset with smaller version
+

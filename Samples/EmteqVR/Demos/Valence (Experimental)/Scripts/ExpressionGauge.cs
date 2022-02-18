@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace EmteqLabs
 {
@@ -11,7 +12,7 @@ namespace EmteqLabs
         private Vector3 startPos;
         private Vector3 endPos;
 
-        public Text pointerValuetext;
+        public TMP_Text pointerValuetext;
 
         void Start()
         {

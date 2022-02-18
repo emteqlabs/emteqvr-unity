@@ -4,6 +4,7 @@ using EmteqLabs.MaskProtocol;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 namespace EmteqLabs
 {
@@ -12,9 +13,11 @@ namespace EmteqLabs
         [SerializeField]
         private SensorGUIObject[] _sensorGUIItems;
         [SerializeField]
-        private Text _instructionsText;
+        private TMP_Text _instructionsText;
         [SerializeField]
         private GameObject _maskMesh;
+        [SerializeField]
+        private float _contactPromptDistance = 0.35f;
 
         private CanvasGroup _maskUI;
         private Dictionary<MuscleMapping, ushort> _emgAmplitudeRms;
@@ -35,7 +38,9 @@ namespace EmteqLabs
             _maskMesh.SetActive(false);
             _maskUI = GetComponentInChildren<CanvasGroup>();
             _maskUI.alpha = 0f;
-            
+            _maskUI.blocksRaycasts = false;
+            _maskUI.interactable = false;
+
             SetMainCameraAsParent();
             SceneManager.sceneLoaded += SceneManagerOnsceneLoaded;
             EmteqVRManager.OnSensorContactStateChange += OnSensorContactStateChange;
@@ -107,8 +112,11 @@ namespace EmteqLabs
             LeanTween.cancel(_maskUI.gameObject);
             
             _maskMesh.SetActive(true);
-            LeanTween.moveLocalZ(_maskMesh, 0.35f, 0.3f);
+            LeanTween.moveLocalZ(_maskMesh, _contactPromptDistance, 0.3f);
+            _maskUI.transform.localPosition = new Vector3(_maskUI.transform.localPosition.x, _maskUI.transform.localPosition.y, _contactPromptDistance);
             LeanTween.alphaCanvas(_maskUI, 1f, 0.3f);
+            _maskUI.blocksRaycasts = true;
+            _maskUI.interactable = true;
         }
 
         public void Hide()
@@ -129,6 +137,8 @@ namespace EmteqLabs
             }
 
             LeanTween.alphaCanvas(_maskUI, 0f, 0.3f);
+            _maskUI.blocksRaycasts = false;
+            _maskUI.interactable = false;
         }
 
         public bool IsActive()

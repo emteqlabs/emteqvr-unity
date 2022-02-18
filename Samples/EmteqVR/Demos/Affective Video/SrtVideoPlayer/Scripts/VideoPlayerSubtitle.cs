@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace EmteqLabs.Video
 {
     public class VideoPlayerSubtitle : MonoBehaviour
     {
-        private Text _text;
+        private TMP_Text _text;
 
         private void Awake()
         {
-            _text = GetComponentInChildren<Text>();
+            _text = GetComponentInChildren<TMP_Text>();
         }
 
         public void SetText(string text)

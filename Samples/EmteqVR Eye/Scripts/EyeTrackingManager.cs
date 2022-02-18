@@ -5,7 +5,14 @@ using ViveSR.anipal.Eye;
 using EyeData_v2 = ViveSR.anipal.Eye.EyeData_v2;
 using GazeIndex = ViveSR.anipal.Eye.GazeIndex;
 #endif
+using System;
+using System.Collections.Concurrent;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using UnityEngine;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace EmteqLabs
 {
@@ -14,10 +21,19 @@ namespace EmteqLabs
         public delegate void GazeDelegate(TrackedObject trackedObject);
         public static event GazeDelegate OnEnterGaze;
         public static event GazeDelegate OnExitGaze;
-        
+
+        public LayerMask trackedObjectLayers = 1;
+
+
 #if EMTEQVR_EYE
-        
-        private static EyeData_v2 _eyeData = new EyeData_v2();
+
+        private static string _filePath => $"{Application.persistentDataPath}/{DateTime.Now.ToString("yyyy-MM-dd HHmmss")}.eyedata";
+
+        private static FileStream _fileStream;
+
+        private static BinaryFormatter _formatter;
+
+        private static EyeData_v2 _eyeData;
         private static bool _eyeCallbackRegistered = false;
 
         private static byte[] _eyeDataBytes;
@@ -32,11 +48,17 @@ namespace EmteqLabs
         private Collider _previousObjectInFocus;
         private TrackedObject _trackedObject;
         
+        
         private void Start()
         {
             if (!SRanipal_Eye_Framework.Instance.EnableEye)
             {
                 enabled = false;
+            }
+            else
+            {
+                _fileStream = new FileStream(_filePath, FileMode.Create);
+                _formatter = new BinaryFormatter();
             }
         }
 
@@ -59,12 +81,11 @@ namespace EmteqLabs
             foreach (GazeIndex index in _gazePriority)
             {
                 Ray gazeRay;
-                int trackedObjectLayer = LayerMask.NameToLayer("Default");
-                
+
                 if (_eyeCallbackRegistered)
-                    eyeFocus = SRanipal_Eye_v2.Focus(index, out gazeRay, out _focusInfo, 0, _maxDistance, (1 << trackedObjectLayer), _eyeData);
+                    eyeFocus = SRanipal_Eye_v2.Focus(index, out gazeRay, out _focusInfo, 0, _maxDistance, trackedObjectLayers, _eyeData);
                 else
-                    eyeFocus = SRanipal_Eye_v2.Focus(index, out gazeRay, out _focusInfo, 0, _maxDistance, (1 << trackedObjectLayer));
+                    eyeFocus = SRanipal_Eye_v2.Focus(index, out gazeRay, out _focusInfo, 0, _maxDistance, trackedObjectLayers);
 
                 if (eyeFocus)
                 {
@@ -118,7 +139,7 @@ namespace EmteqLabs
         {
             Release();
         }
-        
+
         private void EnterGaze(TrackedObject trackedObject)
         {
             trackedObject.EnterGaze(trackedObject.name);
@@ -136,11 +157,15 @@ namespace EmteqLabs
         /// </summary>
         private static void Release()
         {
+            
             if (_eyeCallbackRegistered == true)
             {
                 SRanipal_Eye.WrapperUnRegisterEyeDataCallback(Marshal.GetFunctionPointerForDelegate((SRanipal_Eye_v2.CallbackBasic)EyeCallback));
                 _eyeCallbackRegistered = false;
             }
+            
+            // _dataCollection.CompleteAdding();
+            _fileStream?.Close();
         }
 
         /// <summary>
@@ -163,10 +188,72 @@ namespace EmteqLabs
         {
             _eyeData = eye_data;
             
-            byte[] bytesFromStruct = Shared.Common.Helpers.GetBytesFromStruct(eye_data);
-            EmteqVRPlugin.Instance.HandleEyeData(bytesFromStruct, _trackedObjectInfo);
+            EmteqEyeData data = new EmteqEyeData(_eyeData);
+            
+            _formatter.Serialize(_fileStream, data);
+                
             _trackedObjectInfo = new TrackedObjectInfo();
         }
+        
+        public List<EmteqEyeData> Deserialize(string filePath)
+        {        
+            //$"{Application.persistentDataPath}/" + fileName + ".eyedata";
+
+            List<EmteqEyeData> eyeDataList = new List<EmteqEyeData>();
+
+            FileStream fs = new FileStream(filePath, FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Deserialize the data from the file and
+                // assign the reference to the local variable. 
+                while (true)
+                {
+                    var eyeData = (EmteqEyeData)formatter.Deserialize(fs);
+                    eyeDataList.Add(eyeData);
+                }
+            }
+            catch (SerializationException e)
+            {
+                Debug.Log("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+                Debug.Log("Deserialization complete");
+            }
+
+            return eyeDataList;
+            
+        }
 #endif
+    }
+    public class Vector3SerializationSurrogate : ISerializationSurrogate
+    {
+
+        // Method called to serialize a Vector3 object
+        public void GetObjectData(System.Object obj, SerializationInfo info, StreamingContext context)
+        {
+
+            Vector3 v3 = (Vector3)obj;
+            info.AddValue("x", v3.x);
+            info.AddValue("y", v3.y);
+            info.AddValue("z", v3.z);
+        }
+
+        // Method called to deserialize a Vector3 object
+        public System.Object SetObjectData(System.Object obj, SerializationInfo info,
+            StreamingContext context, ISurrogateSelector selector)
+        {
+
+            Vector3 v3 = (Vector3)obj;
+            v3.x = (float)info.GetValue("x", typeof(float));
+            v3.y = (float)info.GetValue("y", typeof(float));
+            v3.z = (float)info.GetValue("z", typeof(float));
+            obj = v3;
+            return obj;
+        }
     }
 }

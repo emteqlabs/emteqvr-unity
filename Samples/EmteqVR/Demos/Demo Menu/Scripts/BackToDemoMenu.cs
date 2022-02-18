@@ -5,6 +5,9 @@ namespace EmteqLabs
 {
     public class BackToDemoMenu : MonoBehaviour
     {
+
+        [SerializeField]
+        private string _mainMenuName = "DemoMenu";
         private void Awake()
         {
             var canvas = GetComponent<Canvas>();
@@ -16,7 +19,7 @@ namespace EmteqLabs
 
         public void BackToMenuScene()
         {
-            SceneManager.LoadScene("DemoMenu");
+            SceneManager.LoadScene(_mainMenuName);
         }
     }
 }

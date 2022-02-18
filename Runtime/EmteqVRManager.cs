@@ -11,6 +11,7 @@ namespace EmteqLabs
     {
         public static EmteqVRManager Instance { get; private set; }
         public static bool ShowContactPrompt = true;
+        public static bool DataRecordingOn = false;
 
         #region  Serialisable properties
 
@@ -305,11 +306,13 @@ namespace EmteqLabs
         public static void StartRecordingData()
         {
             EmteqVRPlugin.Instance.StartRecordingData();
+            DataRecordingOn = true;
         }
 
         public static void StopRecordingData()
         {
             EmteqVRPlugin.Instance.StopRecordingData();
+            DataRecordingOn = false;
         }
 
         public static void SetParticipantID(string id)

@@ -23,6 +23,9 @@ namespace EmteqLabs
 
         void Start()
         {
+            // Sync framerate to monitors refresh rate
+            QualitySettings.vSyncCount = 1;
+
             finishButton.enabled = false;
             enableRmsButton.enabled = false;
             neutralButton.enabled = true;
