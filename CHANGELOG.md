@@ -91,3 +91,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Replaced font asset with smaller version
 
+
+## [1.5.0] - 2022-04-15
+### Added
+- Added a readable label in json output when saving data points and sections
+- Added second timestamp field within json output that gives the time as seconds in UNIX time
+- Added baseline heartrate calculation stage at the start of calibration
+### Fixed
+- Fixed bug preventing video stream camera from rendering correctly
+
+
+## [1.5.1] - 2022-05-13
+### Added
+- Added Unix timestamp to .eyedata file
+### Fixed
+- Fixed issue with host clock forwarding to mask device firmware
+- Fixed supervision recording start/stop behaviour
+
+
+## [1.5.2] - 2022-05-18
+### Fixed
+- Fixed code that was incompatible with Unity 2019.4
+- Updated WebRTC and Renderstreaming packages to fix support for 2021.3
+
+
+## [1.5.3] - 2022-05-19
+### Added
+- Added data section to cover full calibration sequence
+
+
+## [1.5.4] - 2022-05-26
+### Fixed
+- Fixed end of calibration data section triggering too late.

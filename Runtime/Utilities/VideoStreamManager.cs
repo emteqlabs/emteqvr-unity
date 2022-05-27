@@ -225,6 +225,9 @@ namespace EmteqVR.Runtime.Utilities
         {
             this.State = StreamingStates.NotInitialised;
 
+            Destroy(this._audioStreamer);
+            Destroy(this._cameraStreamer);
+
             Destroy(this._renderStreaming);
             Destroy(this._streamerObject);
             Destroy(this._streamBroadcast);

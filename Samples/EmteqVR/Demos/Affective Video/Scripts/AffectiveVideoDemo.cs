@@ -8,7 +8,8 @@ namespace EmteqLabs
 {
     public class AffectiveVideoDemo : MonoBehaviour
     {
-        [FormerlySerializedAs("customCalibration")] [SerializeField] private CustomCalibration _customCalibration;
+        [SerializeField] private CustomCalibration _customCalibration;
+        [SerializeField] private GameObject _customCalibrationParent;
         [SerializeField] private SrtVideoPlayer _videoPlayer;
 
         private void Awake()
@@ -20,7 +21,7 @@ namespace EmteqLabs
         {
             // Sync framerate to monitors refresh rate
             QualitySettings.vSyncCount = 1;
-            _customCalibration.gameObject.SetActive(true);
+            _customCalibrationParent.gameObject.SetActive(true);
             _videoPlayer.gameObject.SetActive(false);
         }
 
@@ -32,7 +33,7 @@ namespace EmteqLabs
         private void OnExpressionCalibrationComplete(EmgCalibrationData expressionCalibrationData)
         {
             _customCalibration.OnExpressionCalibrationComplete -= OnExpressionCalibrationComplete;
-            _customCalibration.gameObject.SetActive(false);
+            _customCalibrationParent.gameObject.SetActive(false);
             _videoPlayer.gameObject.SetActive(true);
             PlayVideo();
         }

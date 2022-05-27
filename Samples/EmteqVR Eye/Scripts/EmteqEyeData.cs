@@ -80,7 +80,8 @@ namespace EmteqLabs
             timestamp = eyeDataV2.timestamp;
             verbose_data = new VerboseData(eyeDataV2.verbose_data);
             expression_data = new EyeExpression(eyeDataV2.expression_data);
-            timestampJ2000 = (ulong)DateTimeOffset.Now.ToUnixTimeMilliseconds() - 946684800000U; //UnixEpochOffset
+            timestampUnix = (ulong)DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            timestampJ2000 = timestampUnix - 946684800000U; //UnixEpochOffset
         }
 
         /** Indicate if there is a user in front of HMD. */
@@ -89,6 +90,7 @@ namespace EmteqLabs
         public int frame_sequence;
         /** The time when the frame was capturing. in millisecond.*/
         public int timestamp;
+        public ulong timestampUnix;
         public ulong timestampJ2000;
         public VerboseData verbose_data;
         public EyeExpression expression_data;

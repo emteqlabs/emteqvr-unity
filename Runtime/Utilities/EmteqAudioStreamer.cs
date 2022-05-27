@@ -6,7 +6,7 @@ using Unity.RenderStreaming;
 
 namespace EmteqVR.Runtime.Utilities
 {
-    public class EmteqAudioStreamer : AudioStreamBase
+    public class EmteqAudioStreamer : AudioStreamSender
     {
         private MediaStream m_audioStream;
         private AudioListener m_audioListener;
@@ -46,7 +46,17 @@ namespace EmteqVR.Runtime.Utilities
         
         void OnDisable()
         {
-            Audio.Stop();
+            base.OnDisable();
+
+            if (this._listenerTracker.audioTrack == null)
+                return;
+
+            this._listenerTracker.Disable();
+        }
+        private void OnDestroy()
+        {
+            Destroy(this._listenerTracker);
+            VideoStreamManager.Instance.AudioListenerChanged();
         }
 
         public void AudioListenerChanged()
@@ -59,14 +69,16 @@ namespace EmteqVR.Runtime.Utilities
             Destroy(this._listenerTracker);
             
             this._listenerTracker = newAudioListener.gameObject.AddComponent<EmteqStreamListenerTracker>();
-            
+            this.m_audioListener = newAudioListener;
         }
-        
+
         protected override MediaStreamTrack CreateTrack()
         {
-            m_audioStream = Unity.WebRTC.Audio.CaptureStream();
-            return m_audioStream.GetTracks().First();
+            this._listenerTracker.audioTrack = new AudioStreamTrack();
+            this._listenerTracker.audioTrack.Enabled = true;
+            return this._listenerTracker.audioTrack;
         }
+
 
     }
 }
