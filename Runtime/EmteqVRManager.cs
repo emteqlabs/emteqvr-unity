@@ -14,7 +14,6 @@ namespace EmteqLabs
         public static bool DataRecordingOn = false;
 
         #region  Serialisable properties
-
         [SerializeField]
         private bool _autoStartRecordingData = true;
 
@@ -22,12 +21,10 @@ namespace EmteqLabs
         private bool _showContactPrompt = true;
 
         public bool ShowLogMessages = true;
-
         #endregion
 
 
         #region EmteqVRDevice Public Events
-
         public static event EmteqVRPlugin.DeviceConnectDelegate OnDeviceConnect
         {
             add
@@ -282,12 +279,9 @@ namespace EmteqLabs
                 ShowContactPrompt = true;
             }
         }
-
         #endregion
-
-
+        
         #region Public API Methods
-
         public static bool IsDeviceConnected()
         {
             return EmteqVRPlugin.Instance.IsDeviceConnected();
@@ -350,12 +344,10 @@ namespace EmteqLabs
         {
             EmteqVRPlugin.Instance.EndDataSection<T>(label, metadata);
         }
-
         #endregion
 
 
         #region Calibration
-
         public static void StartExpressionCalibration(ExpressionType expressionType, FaceSide faceSide = FaceSide.Left)
         {
             EmteqVRPlugin.Instance.StartExpressionCalibration(expressionType);
@@ -395,7 +387,6 @@ namespace EmteqLabs
         {
             return EmteqVRPlugin.Instance.GetSustainedNormalisedEmgRms();
         }
-
         #endregion
 
         private void ApplicationOnlogMessageReceived(string condition, string stacktrace, UnityEngine.LogType type)
